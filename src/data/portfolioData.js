@@ -1,3 +1,6 @@
+import serviceHtmlImg from '../img/service_htmlcss.jpg';
+import serviceGgsiteImg from '../img/ggsite.png';
+
 export const personalInfo = {
   name: "Phạm Quốc Khánh",
   shortName: "Quốc Khánh",
@@ -11,13 +14,13 @@ export const personalInfo = {
       title: "Làm bài & Thiết kế HTML, CSS, JavaScript",
       desc: "Nhận làm bài tập lớn, đồ án, giao diện website theo mẫu hoặc thiết kế mới. Tối ưu responsive trên điện thoại và máy tính, code chuẩn, dễ hiểu và dễ thuyết minh.",
       tag: "HTML · CSS · JavaScript",
-      image: "/src/img/service_htmlcss.jpg"
+      image: serviceHtmlImg
     },
     {
       title: "Thiết kế Website Google Sites",
       desc: "Xây dựng website trên Google Sites chuẩn thẩm mỹ, bố cục sang trọng, chọn lọc hình ảnh sắc nét, nhúng mã tùy chỉnh phục vụ học tập, sự kiện, văn hóa.",
       tag: "Google Sites · Nhúng mã tùy biến",
-      image: "/src/img/ggsite.png"
+      image: serviceGgsiteImg
     }
   ],
   contact: {

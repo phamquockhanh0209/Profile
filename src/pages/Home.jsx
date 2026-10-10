@@ -4,6 +4,8 @@ import { ArrowRight, Copy, Check, Send, MessageCircle, Sparkles, ChevronDown, Ch
 import { motion } from 'framer-motion';
 import { personalInfo, projectsList } from '../data/portfolioData';
 import heroImg from '../img/hero.png';
+import serviceHtmlImg from '../img/service_htmlcss.jpg';
+import serviceGgsiteImg from '../img/ggsite.png';
 import TechMarquee from '../components/TechMarquee';
 import ProjectCard from '../components/ProjectCard';
 
@@ -210,7 +212,7 @@ export default function Home() {
                 {srv.image && (
                   <div className="relative w-full h-56 overflow-hidden">
                     <img
-                      src={srv.image}
+                      src={srv.image || (idx === 0 ? serviceHtmlImg : serviceGgsiteImg)}
                       alt={srv.title}
                       className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                     />
