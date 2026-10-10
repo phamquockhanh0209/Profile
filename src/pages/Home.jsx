@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Copy, Check, Send, MessageCircle, Sparkles, ChevronDown, ChevronUp } from 'lucide-react';
+import { ArrowRight, Copy, Check, MessageCircle, Sparkles, ChevronDown, ChevronUp } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { personalInfo, projectsList } from '../data/portfolioData';
 import heroImg from '../img/hero.png';
@@ -14,8 +14,6 @@ export default function Home() {
   const [copiedPhone, setCopiedPhone] = useState(false);
   const [activeTab, setActiveTab] = useState('all');
   const [showAll, setShowAll] = useState(false);
-  const [contactState, setContactState] = useState({ name: '', email: '', message: '' });
-  const [formSent, setFormSent] = useState(false);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -32,17 +30,6 @@ export default function Home() {
     navigator.clipboard.writeText(personalInfo.contact.phone);
     setCopiedPhone(true);
     setTimeout(() => setCopiedPhone(false), 2000);
-  };
-
-  const handleSendMessage = (e) => {
-    e.preventDefault();
-    if (!contactState.name || !contactState.email || !contactState.message) return;
-    const subject = encodeURIComponent(`[Yêu cầu làm web] Từ ${contactState.name}`);
-    const body = encodeURIComponent(
-      `Chào Quốc Khánh,\n\nTên: ${contactState.name}\nEmail: ${contactState.email}\n\nNội dung yêu cầu:\n${contactState.message}`
-    );
-    window.location.href = `mailto:${personalInfo.contact.email}?subject=${subject}&body=${body}`;
-    setFormSent(true);
   };
 
   const filteredProjects = activeTab === 'all' 
@@ -360,22 +347,21 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-            
+          <div className="max-w-2xl mx-auto">
             {/* Box thông tin */}
-            <div className="gold-card p-6 md:p-8 rounded-2xl space-y-6">
+            <div className="gold-card p-6 sm:p-8 rounded-2xl space-y-6">
               <div>
                 <span className="text-xs uppercase tracking-wider text-amber-400/80 font-mono">
                   Zalo / Điện thoại trực tiếp
                 </span>
-                <div className="flex items-center justify-between gap-2 mt-2 p-3 rounded-xl bg-neutral-950 border border-amber-500/25">
-                  <span className="text-sm font-mono text-amber-300 font-bold">
+                <div className="flex items-center justify-between gap-2 mt-2 p-3 sm:p-4 rounded-xl bg-neutral-950 border border-amber-500/25">
+                  <span className="text-base sm:text-lg font-mono text-amber-300 font-bold">
                     {personalInfo.contact.phone}
                   </span>
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-2">
                     <button
                       onClick={handleCopyPhone}
-                      className="p-1.5 rounded-lg hover:bg-neutral-800 text-amber-300 transition-colors"
+                      className="p-2 rounded-lg hover:bg-neutral-800 text-amber-300 transition-colors"
                       title="Sao chép SĐT"
                     >
                       {copiedPhone ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
@@ -384,9 +370,10 @@ export default function Home() {
                       href={personalInfo.contact.zalo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-2.5 py-1 rounded-lg bg-amber-400 text-neutral-950 font-bold text-xs"
+                      className="btn-gold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-1.5"
                     >
-                      Mở Zalo
+                      <MessageCircle className="w-4 h-4" />
+                      <span>Mở Zalo</span>
                     </a>
                   </div>
                 </div>
@@ -396,13 +383,13 @@ export default function Home() {
                 <span className="text-xs uppercase tracking-wider text-amber-400/80 font-mono">
                   Email liên hệ
                 </span>
-                <div className="flex items-center justify-between gap-2 mt-2 p-3 rounded-xl bg-neutral-950 border border-amber-500/25">
+                <div className="flex items-center justify-between gap-2 mt-2 p-3 sm:p-4 rounded-xl bg-neutral-950 border border-amber-500/25">
                   <span className="text-xs sm:text-sm font-mono text-neutral-200 truncate">
                     {personalInfo.contact.email}
                   </span>
                   <button
                     onClick={handleCopyEmail}
-                    className="p-1.5 rounded-lg hover:bg-neutral-800 text-amber-300 transition-colors"
+                    className="p-2 rounded-lg hover:bg-neutral-800 text-amber-300 transition-colors"
                     title="Sao chép email"
                   >
                     {copiedEmail ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
@@ -414,74 +401,26 @@ export default function Home() {
                 <span className="text-xs uppercase tracking-wider text-amber-400/80 font-mono">
                   Cam kết chất lượng
                 </span>
-                <p className="text-xs text-neutral-300 mt-2 leading-relaxed">
+                <p className="text-xs sm:text-sm text-neutral-300 mt-2 leading-relaxed">
                   ✓ Giao diện đúng yêu cầu, chạy mượt trên cả điện thoại và máy tính.<br />
                   ✓ Bàn giao mã nguồn rõ ràng, có chú thích chi tiết, dễ thuyết minh bài tập.<br />
                   ✓ Hỗ trợ chỉnh sửa theo góp ý của giáo viên hoặc khách hàng.<br />
                   ✓ Giá cả sinh viên, uy tín và nhiệt tình.
                 </p>
               </div>
+
+              <div className="pt-2">
+                <a
+                  href={personalInfo.contact.zalo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-gold w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all"
+                >
+                  <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span>Nhắn tin Zalo để trao đổi yêu cầu ({personalInfo.contact.phone})</span>
+                </a>
+              </div>
             </div>
-
-            {/* Form gửi yêu cầu */}
-            <form onSubmit={handleSendMessage} className="gold-card p-6 md:p-8 rounded-2xl space-y-4">
-              <div>
-                <label className="block text-xs text-amber-200/80 mb-1.5">
-                  Tên của bạn
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="Ví dụ: Bạn Nam"
-                  value={contactState.name}
-                  onChange={(e) => setContactState({ ...contactState, name: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl text-xs sm:text-sm border border-amber-500/25 bg-neutral-950 text-white focus:outline-none focus:border-amber-400"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs text-amber-200/80 mb-1.5">
-                  Email / Số Zalo của bạn
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="name@gmail.com hoặc SĐT Zalo"
-                  value={contactState.email}
-                  onChange={(e) => setContactState({ ...contactState, email: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl text-xs sm:text-sm border border-amber-500/25 bg-neutral-950 text-white focus:outline-none focus:border-amber-400"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs text-amber-200/80 mb-1.5">
-                  Yêu cầu làm bài / website
-                </label>
-                <textarea
-                  rows="3"
-                  required
-                  placeholder="Mô tả mẫu web bạn muốn làm hoặc cần chỉnh sửa theo yêu cầu..."
-                  value={contactState.message}
-                  onChange={(e) => setContactState({ ...contactState, message: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl text-xs sm:text-sm border border-amber-500/25 bg-neutral-950 text-white focus:outline-none focus:border-amber-400 resize-none"
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                className="btn-gold w-full py-3 rounded-xl font-semibold text-xs sm:text-sm flex items-center justify-center gap-2"
-              >
-                <Send className="w-4 h-4" />
-                <span>Gửi yêu cầu ngay</span>
-              </button>
-
-              {formSent && (
-                <p className="text-xs text-center text-amber-300 mt-2">
-                  Ứng dụng email đã sẵn sàng để gửi tin nhắn đến Quốc Khánh.
-                </p>
-              )}
-            </form>
-
           </div>
 
         </div>
